@@ -18,12 +18,13 @@ spec:
       - name: frontend
         image: nginx
         volumeMounts:
-          - name: nginx-conf
+          - name: nginx-config-volume
             mountPath: /etc/nginx/nginx.conf
+            subPath: nginx.conf
         ports:
         - containerPort: 80
       volumes:
-        - name: nginx-conf
+        - name: nginx-config-volume
           configMap:
             name: nginx-config
 ---
