@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: wordpress-config
 data:
-  WORDPRESS_DB_HOST=db
-  WORDPRESS_DB_NAME=wordpress
-  WORDPRESS_ENABLE_REVERSE_PROXY=yes
-  WORDPRESS_DATA_TO_PERSIST=wp-config.php wp-content
+  WORDPRESS_DB_HOST: db
+  WORDPRESS_DB_NAME: wordpress
+  WORDPRESS_ENABLE_REVERSE_PROXY: yes
+  WORDPRESS_DATA_TO_PERSIST: wp-config.php wp-content
