@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress-deployment
+  labels:
+    app: wordpress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wordpress
+  template:
+    metadata:
+      labels:
+        app: wordpress
+    spec:
+      containers:
+      - name: backend
+        image: wordpress
+        env:
+          - name: WORDPRESS_DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: wordpress-secret
+                key: wordpress_db_user
+          - name: WORDPRESS_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: wordpress-secret
+                key: wordpress_db_password
+        envFrom:
+          - configMapRef:
+              name: wordpress-config
+        volumeMounts:
+          - name: wordpress
+            mountPath: /var/www/html
+        ports:
+        - containerPort: 80
+      volumes:
+        - name: wordpress
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress-service
+spec:
+  type: ClusterIP
+  selector:
+    app: wordpress
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 80
