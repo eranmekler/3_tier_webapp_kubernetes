@@ -17,23 +17,14 @@ spec:
       containers:
       - name: backend
         image: wordpress
-        env:
-          - name: WORDPRESS_DB_USER
-            valueFrom:
-              secretKeyRef:
-                name: wordpress-secret
-                key: wordpress_db_user
-          - name: WORDPRESS_DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: wordpress-secret
-                key: wordpress_db_password
         envFrom:
           - configMapRef:
               name: wordpress-config
+          - secretRef:
+              name: wordpress-secret
         volumeMounts:
           - name: wordpress
-            mountPath: /var/www/html
+            mountPath: /var/www
         ports:
         - containerPort: 80
       volumes:
@@ -50,5 +41,5 @@ spec:
     app: wordpress
   ports:
     - protocol: TCP
-      port: 8080
+      port: 80
       targetPort: 80

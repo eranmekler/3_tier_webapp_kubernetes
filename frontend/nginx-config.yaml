@@ -4,24 +4,32 @@ metadata:
   name: nginx-config
 data:
   nginx.conf: |-
+    error_log /var/log/nginx-error.log info;
     events {}
 
     http {
         upstream backend {
           least_conn;
-          server backend:8080;
+          server wordpress-service.default.svc.cluster.local:80;
         }
 
         server {
           listen 80;
-
-          server_name localhost;
-
-          location / {
-            proxy_pass http://backend;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_buffering on;
-          }
+          return 301 https://$host$request_uri;
+        }
+    
+        server {
+            listen 443 ssl;
+            server_name example.com;
+            
+            ssl_certificate /etc/ssl/certs/example.com.crt;
+            ssl_certificate_key /etc/ssl/private/example.com.key;
+            
+            location / {
+              proxy_pass http://backend;
+              proxy_set_header Host $host;
+              proxy_set_header X-Real-IP $remote_addr;
+              proxy_buffering on;
+            }
         }
     }

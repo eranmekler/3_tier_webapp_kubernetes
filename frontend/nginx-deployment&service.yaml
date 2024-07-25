@@ -18,6 +18,12 @@ spec:
       - name: frontend
         image: nginx
         volumeMounts:
+          - name: nginx-cert-volume
+            mountPath: /etc/ssl/certs
+            readOnly: true
+          - name: nginx-key-volume
+            mountPath: /etc/ssl/private
+            readOnly: true
           - name: nginx-config-volume
             mountPath: /etc/nginx/nginx.conf
             subPath: nginx.conf
@@ -27,6 +33,18 @@ spec:
         - name: nginx-config-volume
           configMap:
             name: nginx-config
+        - name: nginx-cert-volume
+          secret:
+            secretName: nginx-secret
+            items:
+              - key: tls.crt
+                path: example.com.crt
+        - name: nginx-key-volume
+          secret:
+            secretName: nginx-secret
+            items:
+              - key: tls.key
+                path: example.com.key
 ---
 apiVersion: v1
 kind: Service

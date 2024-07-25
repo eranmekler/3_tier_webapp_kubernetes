@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: mysql-config
 data:
-  mysql_database: mysql_db
+  MYSQL_DATABASE: wordpress

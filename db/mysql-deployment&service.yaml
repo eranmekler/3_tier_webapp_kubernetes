@@ -17,29 +17,19 @@ spec:
       containers:
       - name: db
         image: mysql
-        env:
-          - name: MYSQL_DATABASE
-            valueFrom:
-              configMapKeyRef:
-                name: mysql-config
-                key: mysql_database
-          - name:  MYSQL_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mysql-secret
-                key: root_password
-          - name: MYSQL_USER
-            valueFrom:
-              secretKeyRef:
-                name: mysql-secret
-                key: mysql_user
-          - name : MYSQL_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mysql-secret
-                key: mysql_password
+        envFrom:
+          - configMapRef:
+              name: mysql-config
+          - secretRef:
+              name: mysql-secret
+        volumeMounts:
+          - name: mysql
+            mountPath: /var/lib/mysql
         ports:
         - containerPort: 3306
+      volumes:
+        - name: mysql
+          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
@@ -51,5 +41,4 @@ spec:
     app: mysql
   ports:
     - protocol: TCP
-      port: 35000
-      targetPort: 3306
+      port: 3306
