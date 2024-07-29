@@ -24,7 +24,7 @@ spec:
               name: wordpress-secret
         volumeMounts:
           - name: wordpress
-            mountPath: /var/www
+            mountPath: /var/www/html
         ports:
         - containerPort: 80
       volumes:
