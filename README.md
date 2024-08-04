@@ -41,10 +41,10 @@ Before we dive in, you'll need to have the following installed on your system:
 
 **Deploy the application:**
 
-`cd 3_tier_webapp_kubernetes`
-`kubectl apply -f frontend/`
-`kubectl apply -f backend/`
-`kubectl apply -f db/`
+ `cd 3_tier_webapp_kubernetes`
+ `kubectl apply -f frontend/`
+ `kubectl apply -f backend/`
+ `kubectl apply -f db/`
 
 
 
