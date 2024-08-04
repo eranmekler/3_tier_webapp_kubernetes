@@ -18,7 +18,7 @@ Before we dive in, you'll need to have the following installed on your system:
 -   **Minikube:** Refer to the official Minikube documentation for detailed instructions based on your operating system: [https://kubernetes.io/docs/setup/minikube/](https://kubernetes.io/docs/setup/minikube/)
 -   **Kubectl:** -   Download the appropriate kubectl binary for your operating system from the Kubernetes website: [https://kubernetes.io/docs/tasks/tools/install-kubectl/](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
-![](https://github.com/eranmekler/3_tier_webapp_kubernetes/3_tier_kubernetes.drawio.svg)
+![](https://github.com/eranmekler/3_tier_webapp_kubernetes/blob/main/3_tier_kubernetes.drawio.svg)
 
 ## Deployment on Kubernetes:
 
